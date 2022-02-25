@@ -14,6 +14,11 @@ from debug import draw_keypoints, draw_connections, get_edge_dictionary
 
 # ------------------ Detector Function ------------------ #
 def detector(model, interpretor, debug):
+    """
+    detector: 
+        Main function that operates the detection and event trigger for the application.
+    """
+
     capture_front = cv2.VideoCapture(0)
 
     time_threshold = 15
@@ -74,9 +79,10 @@ def detector(model, interpretor, debug):
                 playing_audio = False
                 time_count = 0
         
-        print(time_count)
-
-        cv2.imshow("Front", frame_front)
+        
+        if debug:
+            print(int(time_count))
+            cv2.imshow("Front", frame_front)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break

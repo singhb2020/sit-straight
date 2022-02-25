@@ -8,8 +8,11 @@ import wget
 
 # ------------------ Model Class Defenition ------------------ #
 class Model():
-    # Contains Model
-
+    """
+    Model: 
+        Class used to retrieve latest models and store relavent parameters.
+    """
+    
     def __init__(self, name):
         if name == 'lightning':
             self.url = 'https://tfhub.dev/google/lite-model/movenet/singlepose/lightning/3?lite-format=tflite'
@@ -20,6 +23,7 @@ class Model():
         
         self.name = name
         self.file_path = ''
+
 
     def download_model(self):
         file_dir = os.path.join( os.getcwd(), f'{self.name}.tflite' )

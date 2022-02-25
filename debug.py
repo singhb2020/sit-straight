@@ -8,6 +8,11 @@ import cv2
 
 # ------------------ Drawing Utilities ------------------ #
 def draw_keypoints(frame, keypoints, confidence_threshold):
+    """
+    draw_keypoint: 
+        Used to draw the keypoint outputs. Used only when debugging or calibrating.
+    """
+
     y, x, c = frame.shape
     shaped = np.squeeze(np.multiply(keypoints, [y,x,1]))
 
@@ -16,7 +21,13 @@ def draw_keypoints(frame, keypoints, confidence_threshold):
         if conf > confidence_threshold:
             cv2.circle(frame, (int(kx), int(ky)), 4, (0,255,0), -1)
 
+
 def draw_connections(frame, keypoints, edges, confidence_threshold):
+    """
+    draw_connections: 
+        Used to draw the edges between keypoint outputs. Used only when debugging or calibrating.
+    """
+
     y, x, c = frame.shape
     shaped = np.squeeze(np.multiply(keypoints, [y,x,1]))
 
@@ -28,7 +39,13 @@ def draw_connections(frame, keypoints, edges, confidence_threshold):
         if min(c1, c2) > confidence_threshold:
             cv2.line(frame, (int(x1), int(y1)), (int(x2), int(y2)), (255,0,0), 1)
 
+
 def get_edge_dictionary():
+    """
+    get_edge_dictionary: 
+        Used to map pairs of keypoints to create an edge
+    """
+
     return {
     (0, 1): 'm',
     (0, 2): 'c',

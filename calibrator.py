@@ -16,14 +16,30 @@ from debug import draw_connections, draw_keypoints, get_edge_dictionary
 
 # ------------------ Calibrator Functions ------------------ #
 def calibrate(model, interpretor):
+    """
+    calibrate: 
+        Runs the calibration for each user. Saves a threshold.json file for output.
+    """
+
     def find_trimmed_mean(input_list, trim_percent):
+        """
+        find_trimmed_mean: 
+            Returns the trimmed mean for a list of input data
+        """
+
         mean_list = []
         for dist in input_list:
             mean_list.append(stats.trim_mean(dist, trim_percent))
 
         return mean_list
     
+
     def get_dist_lst_values(input_list, frame, keypoints):
+            """
+            get_dist_lst_values: 
+                Adds distance values for each frame in a list and returns a list of the lists.
+            """
+
             #Unwrapping the list
             dists_right_ear, dists_left_ear, dists_right_nose, dists_left_nose, dists_right_eye, dists_left_eye = (x for x in input_list)
 
@@ -47,7 +63,13 @@ def calibrate(model, interpretor):
 
             return [dists_right_ear, dists_left_ear, dists_right_nose, dists_left_nose, dists_right_eye, dists_left_eye]
 
+
     def calibrator_video():
+        """
+        calibrator_video: 
+            Runs the opencv video for the calibration to run.
+        """
+
         capture_front = cv2.VideoCapture(0)
         start_time = time.perf_counter()
 
@@ -95,8 +117,13 @@ def calibrate(model, interpretor):
 
         return good_calibration_list, bad_calibration_list
 
+
     def view_calibartion(thresholds, jump_percent, raw_good, raw_bad, trimmed_good, trimmed_bad):
-        #View Calibration
+        """
+        view_calibration: 
+            Shows the results of the calibration using graphs.
+        """
+
         fig, axs = plt.subplots(2,3)
         fig.set_size_inches(18.5, 10.5)
 
@@ -133,7 +160,13 @@ def calibrate(model, interpretor):
     
     return thresholds
 
+
 def save_thresholds(input_dict):
+    """
+    save_thresholds: 
+        Saves the theshold.json to be used after inital calibration
+    """
+
     theshold_file = open("thresholds.json", 'w')
     json.dump(input_dict, theshold_file)
     theshold_file.close
